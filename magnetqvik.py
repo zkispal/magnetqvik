@@ -56,7 +56,6 @@ for requestee in requestees:
 
     # Trying to simulate Copy/Past - doesn't work either.
     clipboard.copy(requestee["Amount"])
-  
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").click()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").clear()
     time.sleep(3)
