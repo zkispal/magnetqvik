@@ -50,6 +50,7 @@ for requestee in requestees:
     driver.find_element(By.XPATH,"//a[@id='ezUgyfMenu:indexView:frmUgyfelMenu:fizkerInditas']").click()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:partner_input']").send_keys(requestee["Parent"])
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:fizfelchecker']").send_keys(requestee["BankaccountNo"])
+    
     #driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").send_keys(requestee["Amount"])
     # Doesn't work - all zeros disappear from the field - not only leading or trailing zeros. E.g. 102030 becomes 123.
 
