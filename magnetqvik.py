@@ -66,15 +66,15 @@ for requestee in requestees:
     driver.find_element(By.XPATH,"//textarea[@id='fizKerInditasForm:kozlemeny']").send_keys(requestee["Child"] + " " + requestee["Comment"])
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:lejarat_input']").clear()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:lejarat_input']").send_keys('2025.06.01.')
-    time.sleep(10)
+
 
     driver.find_element(By.XPATH,"//span[normalize-space()='Tovább »']").click()
 
-    time.sleep(8)
+    time.sleep(8) # Need some time to render the next page
 
     driver.find_element(By.XPATH,"//span[normalize-space()='Fizetési kérelem indítás']").click()
 
-    time.sleep(20)
+    time.sleep(20) # Need time to be able to approve the request in the mobile app.
 
 
 
