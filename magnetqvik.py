@@ -16,8 +16,8 @@ requestees = []
 
 '''
 Fields of the csv file:
-"Parent"  - string - name of the parent of the class member as well as owner of the bank account
-"BankaccountNo" - string - bank account number where the qvik request will be sent
+"Parent"  - string - name of the parent of the school classmate as well as owner of the bank account
+"BankaccountNo" - string - bank account number where the qvik request will be sent to
 "Child" - string - name of the child in the class
 "Comment" - string - purpose of the qvik request e.g. monthly class fund contribution, class excursion, theater ticket, gift to class head teacher etc.
 "IsRequested" - bool - if that parent/child is requested to pay - e.g. if someone is not attending the class excursion then will be left out from the request
@@ -50,7 +50,7 @@ for requestee in requestees:
     driver.find_element(By.XPATH,"//a[@id='ezUgyfMenu:indexView:frmUgyfelMenu:fizkerInditas']").click()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:partner_input']").send_keys(requestee["Parent"])
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:fizfelchecker']").send_keys(requestee["BankaccountNo"])
-    
+
     #driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").send_keys(requestee["Amount"])
     # Doesn't work - all zeros disappear from the field - not only leading or trailing zeros. E.g. 102030 becomes 123.
 
