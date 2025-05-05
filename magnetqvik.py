@@ -1,4 +1,4 @@
-# Start Chrome in debug mode:/opt/google/chrome/google-chrome --remote-debugging-port=9222 --user-data-dir="~/ChromeProfile"
+# Start Chrome in debug mode:  /opt/google/chrome/google-chrome --remote-debugging-port=9222 --user-data-dir="~/ChromeProfile"
 
 
 from selenium import webdriver
@@ -34,28 +34,32 @@ with open ('Bankaccountlist.csv', mode='r') as inputfile:
 
 print(requestees)
 
-# need this to be able to interact with a browser window that wasn't open by Selenium otherwise couldn't get past MFA as Selenium cannot handle MFA.
+# Need to provide additonal options to the webdriver -  this to be able to interact with a browser window that wasn't open by Selenium 
+# otherwise couldn't get past MFA as Selenium cannot handle MFA.
+
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222") 
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service = service, options=chrome_options)
 
-print(driver.title)
+print(driver.title) # This is here just to print out something to see if webdriver works.
 
 for requestee in requestees:
     driver.find_element(By.XPATH,"//a[normalize-space()='qvik | FIZETÉSI KÉRELEM']").click()
     driver.find_element(By.XPATH,"//a[@id='ezUgyfMenu:indexView:frmUgyfelMenu:fizkerInditas']").click()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:partner_input']").send_keys(requestee["Parent"])
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:fizKerInditasTabView:fizfelchecker']").send_keys(requestee["BankaccountNo"])
-    
+    #driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").send_keys(requestee["Amount"])
+    # Doesn't work - all zeros disappear from the field - not only leading or trailing zeros. E.g. 102030 becomes 123.
+
+    # Trying to simulate Copy/Past - doesn't work either.
     clipboard.copy(requestee["Amount"])
   
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").click()
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").clear()
     time.sleep(3)
     driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").send_keys(Keys.CONTROL + 'v')
-    
     
 
     
@@ -74,23 +78,5 @@ for requestee in requestees:
 
 
 
-"""
-10000
-
-#driver.find_element(By.XPATH,"//input[@id='fizKerInditasForm:osszeg']").send_keys(amount)
-# Valamiért a nullákat eltünteti az összeg beviteli mezőből
-
-
-
-
-
-
-
-
-#document.
-
-#fizKerInditasForm\:osszeg
 #cmd = "document.querySelector("#fizKerInditasForm\\:osszeg").value = 9700 ";
 #driver.execute_script(cmd)
-
-"""
